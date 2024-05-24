@@ -1,0 +1,49 @@
+// Lista de produtos disponíveis
+const produtos = [
+    { codigo: "001", nome: "Computador Desktop Intel Core i5", preco: 3199.00 },
+    { codigo: "002", nome: "Laptop Ultrabook Intel Core i7", preco: 4799.00 },
+    { codigo: "003", nome: "Monitor LED 24 polegadas Full HD", preco: 799.90 },
+    { codigo: "004", nome: "Teclado Mecânico Gamer RGB", preco: 299.00 },
+    { codigo: "005", nome: "Mouse Óptico Sem Fio", preco: 79.90 }
+];
+
+// Lista de lançamentos (carrinho de compras)
+let listaDeLancamentos = [];
+
+// Função para exibir os produtos disponíveis
+function exibirProdutos() {
+    console.log("Produtos disponíveis:");
+    produtos.forEach((produto) => {
+        console.log(`${produto.codigo} - ${produto.nome} - R$ ${produto.preco.toFixed(2)}`);
+    });
+}
+
+// Função para lançar a venda de um produto
+function lancarVenda(codigo, quantidade) {
+    const produtoSelecionado = produtos.find((produto) => produto.codigo === codigo);
+    if (!produtoSelecionado) {
+        console.log("Produto não encontrado. Verifique o código digitado.");
+        return;
+    }
+
+    const subtotal = produtoSelecionado.preco * quantidade;
+    listaDeLancamentos.push({ produto: produtoSelecionado, quantidade, subtotal });
+    console.log("Produto adicionado com sucesso!");
+}
+
+// Função para imprimir a nota fiscal
+function imprimirNotaFiscal() {
+    let total = 0;
+    console.log("Nota Fiscal:");
+    listaDeLancamentos.forEach((lancamento) => {
+        console.log(`${lancamento.produto.nome} - ${lancamento.quantidade} unidade(s) - R$ ${lancamento.subtotal.toFixed(2)}`);
+        total += lancamento.subtotal;
+    });
+    console.log(`Total da compra: R$ ${total.toFixed(2)}`);
+}
+
+// Exemplo de uso
+exibirProdutos();
+lancarVenda("004", 2); // Lança 2 unidades do Computador Desktop
+lancarVenda("003", 1); // Lança 1 unidade do Monitor LED
+imprimirNotaFiscal();
